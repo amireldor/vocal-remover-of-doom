@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 // import config from '../../config';
 import Helmet from 'react-helmet';
 
+import {SongSelector} from '../index';
+
 export default class Home extends Component {
   render() {
     const styles = require('./Home.scss');
@@ -11,6 +13,7 @@ export default class Home extends Component {
         <Helmet title="Home"/>
         <div className="container">
           Hi.
+          <SongSelector />
         </div>
       </div>
     );

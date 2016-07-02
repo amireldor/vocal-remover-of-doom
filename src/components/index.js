@@ -6,3 +6,4 @@
  */
 
 export InfoBar from './InfoBar/InfoBar';
+export FileInput from './FileInput/FileInput';
