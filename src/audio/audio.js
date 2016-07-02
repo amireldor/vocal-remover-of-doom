@@ -20,6 +20,9 @@ export async function loadFile(file) {
   return new Promise((resolve) => {
     audioContext.decodeAudioData(data, (buffer) => {
       audioBuffer = buffer;
+      if (bufferSource) {
+        bufferSource.disconnect();
+      }
       bufferSource = audioContext.createBufferSource();
       bufferSource.buffer = audioBuffer;
       bufferSource.connect(audioContext.destination);
