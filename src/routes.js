@@ -2,11 +2,11 @@ import React from 'react';
 import {IndexRoute, Route} from 'react-router';
 // import { isLoaded as isAuthLoaded, load as loadAuth } from 'redux/modules/auth';
 import {
-    App,
-    Home,
-    About,
-    NotFound,
-  } from 'containers';
+  App,
+  Home,
+  About,
+  NotFound
+} from 'containers';
 
 export default (/* store */) => {
   /*
@@ -45,7 +45,7 @@ export default (/* store */) => {
       */}
 
       { /* Routes */ }
-      <Route path="about" component={About}/>
+      {/* <Route path="about" component={About}/> */}
 
       { /* Catch all route */ }
       <Route path="*" component={NotFound} status={404} />

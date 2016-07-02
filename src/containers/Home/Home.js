@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 // import config from '../../config';
 import Helmet from 'react-helmet';
 
-import {SongSelector} from '../index';
+import {SongSelector} from 'containers';
 
 export default class Home extends Component {
   render() {

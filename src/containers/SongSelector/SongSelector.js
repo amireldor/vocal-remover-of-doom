@@ -14,8 +14,12 @@ const actions = {
 };
 
 const SongSelector = connect(
-  state => ({info: state.info.data}),
- dispatch => bindActionCreators(Object.assign({}, load, actions), dispatch)
+  state => ({
+    info: state.info.data,
+    fileSelected: state.songFile.fileSelected,
+    fileName: state.songFile.fileName
+  }),
+  dispatch => bindActionCreators(Object.assign({}, load, actions), dispatch)
 )(FileInput);
 
 export default SongSelector;

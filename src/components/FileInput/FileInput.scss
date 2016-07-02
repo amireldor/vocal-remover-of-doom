@@ -4,5 +4,6 @@
 
 .inputElement {
     // Hide the <input> element
-    display: none;
+    display: none !important;
+    color: red;
 }
