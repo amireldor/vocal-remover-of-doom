@@ -8,8 +8,8 @@ import {FileInput} from 'components';
 
 const actions = {
   onFileChange: (event) => {
-    console.log('SONG SELECTOR container', event.target.value);
-    return songFileActions.loadSongFile(event.target.value);
+    console.log('SONG SELECTOR container', event.target.files[0]);
+    return songFileActions.loadSongFile(event.target.files[0]);
   }
 };
 

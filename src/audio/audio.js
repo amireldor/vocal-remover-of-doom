@@ -3,11 +3,20 @@
  * Stuff that handle the Web Audio API interesting stuff
  */
 
-import {AudioContextConstructor} from 'audio';
+const audioContext = typeof window !== 'undefined' &&
+        new (window.AudioContext || window.webkitAudioContext)();
 
-const audioContext = AudioContextConstructor && new AudioContextConstructor();
+let audioBuffer;  // Current audio buffer data
 
-export function loadFile(file) {
-  console.log('websaudio', file, audioContext);
+export async function loadFile(file) {
+  const data = await new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (event) => resolve(event.target.result);
+    reader.onerror = (event) => reject(event);
+    reader.readAsArrayBuffer(file);
+  });
+  audioContext.decodeAudioData(data, (buffer) => {
+    audioBuffer = buffer;
+  });
 }
 

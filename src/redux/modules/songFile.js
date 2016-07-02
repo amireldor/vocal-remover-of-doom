@@ -3,12 +3,16 @@ const LOAD_SONG_FILE = 'vocal-doom/song-file/LOAD_SONG_FILE';
 import Audio from 'audio';
 
 const initialState = {
-  fileSelected: false
+  fileSelected: false,
+  fileReady: false
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_SONG_FILE:
+      Audio.loadFile(file).then(data => {
+        console.log('ready', data);
+      });
       return {
         ...state,
         fileSelected: true
@@ -19,9 +23,6 @@ export default function reducer(state = initialState, action) {
 }
 
 export function loadSongFile(file) {
-  console.log('REDUCER SONG FILE loadSongFile', file);
-  console.log('AUDIO', Audio);
-  Audio.loadFile(file);
   return {
     type: LOAD_SONG_FILE,
     file
