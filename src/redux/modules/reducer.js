@@ -10,12 +10,14 @@ import info from './info';
 // import widgets from './widgets';
 
 import songFile from './songFile';
+import playerControls from './playerControls';
 
 export default combineReducers({
   routing: routerReducer,
   reduxAsyncConnect,
   info,
-  songFile
+  songFile,
+  playerControls
 });
 
 // export default combineReducers({

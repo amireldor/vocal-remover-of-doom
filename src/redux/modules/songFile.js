@@ -3,6 +3,8 @@ const SONG_FILE_LOADED = 'vocal-doom/song-file/SONG_FILE_LOADED';
 
 import Audio from 'audio';
 
+import * as playerControls from 'redux/modules/playerControls';  // TODO: remove, temp
+
 const initialState = {
   fileSelected: false,
   fileReady: false,
@@ -37,6 +39,8 @@ export function loadSongFile(file) {
     Audio.loadFile(file).then(data => {
       console.log('ready', data);
       dispatch({ type: SONG_FILE_LOADED });
+    }).then(() => {
+      dispatch(playerControls.play());  // TODO: remove, this is temp for checking
     });
   };
 }

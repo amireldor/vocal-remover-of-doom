@@ -6,6 +6,8 @@
 const audioContext = typeof window !== 'undefined' &&
         new (window.AudioContext || window.webkitAudioContext)();
 
+let bufferSource;
+
 let audioBuffer;  // Current audio buffer data
 
 export async function loadFile(file) {
@@ -15,8 +17,23 @@ export async function loadFile(file) {
     reader.onerror = (event) => reject(event);
     reader.readAsArrayBuffer(file);
   });
-  audioContext.decodeAudioData(data, (buffer) => {
-    audioBuffer = buffer;
+  return new Promise((resolve) => {
+    audioContext.decodeAudioData(data, (buffer) => {
+      audioBuffer = buffer;
+      bufferSource = audioContext.createBufferSource();
+      bufferSource.buffer = audioBuffer;
+      bufferSource.connect(audioContext.destination);
+      resolve(bufferSource);
+    });
   });
 }
 
+export function play() {
+  console.log('audio play');
+  bufferSource.start();
+}
+
+export function pause() {
+  console.log('audio pause');
+  bufferSource.stop();
+}
