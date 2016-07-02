@@ -1,4 +1,3 @@
-import React, {Component, PropTypes} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {load} from 'redux/modules/info';
@@ -8,9 +7,9 @@ import * as songFileActions from 'redux/modules/songFile';
 import {FileInput} from 'components';
 
 const actions = {
-  onFileChange: function(event) {
-    console.log('hello');
-    return songFileActions.loadSongFile('test');
+  onFileChange: (event) => {
+    console.log('SONG SELECTOR container', event.target.value);
+    return songFileActions.loadSongFile(event.target.value);
   }
 };
 
