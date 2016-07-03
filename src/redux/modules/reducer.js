@@ -9,14 +9,14 @@ import {reducer as reduxAsyncConnect} from 'redux-async-connect';
 import info from './info';
 // import widgets from './widgets';
 
-import songFile from './songFile';
+import song from './song';
 import playerControls from './playerControls';
 
 export default combineReducers({
   routing: routerReducer,
   reduxAsyncConnect,
   info,
-  songFile,
+  song,
   playerControls
 });
 

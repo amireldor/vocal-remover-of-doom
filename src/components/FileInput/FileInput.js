@@ -4,12 +4,33 @@
  * pretty and beautiful
  */
 import React, {Component, PropTypes} from 'react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+// import {load} from 'redux/modules/info';
 
+import * as songActions from 'redux/modules/song';
+
+const actions = {
+  onFileChange: (event) => {
+    console.log('SONG SELECTOR container', event.target.files[0]);
+    return songActions.loadSongFile(event.target.files[0]);
+  }
+};
+
+
+@connect(
+  state => ({
+    songType: state.song.songType,
+    fileName: state.song.fileName
+  }),
+  dispatch => bindActionCreators(Object.assign({}, actions), dispatch)
+)
 export default class FileInput extends Component {
   static propTypes = {
     onFileChange: PropTypes.func.isRequired,
     fileSelected: PropTypes.bool,
-    fileName: PropTypes.string
+    fileName: PropTypes.string,
+    songType: PropTypes.string
   }
 
   render() {

@@ -3,7 +3,7 @@ const IS_VALID_SUCCESS = 'redux-example/survey/IS_VALID_SUCCESS';
 const IS_VALID_FAIL = 'redux-example/survey/IS_VALID_FAIL';
 
 const initialState = {
-  saveError: null,
+  saveError: null
 };
 
 export default function reducer(state = initialState, action = {}) {

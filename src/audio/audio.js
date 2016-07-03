@@ -20,6 +20,7 @@ class AudioBufferManager {
 
     // For handling pausing and stuff as createBufferSource can be started only once
     this.pauseManagerState = {
+      // TODO: shouldBeUsed is ugly, just set this state to null or something
       shouldBeUsed: false,  // If this object should be used at all (no need in media stream for example)
       buffer: null
     };

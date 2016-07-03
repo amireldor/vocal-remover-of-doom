@@ -4,7 +4,7 @@ import {IndexRoute, Route} from 'react-router';
 import {
   App,
   Home,
-  About,
+//  About,
   NotFound
 } from 'containers';
 
