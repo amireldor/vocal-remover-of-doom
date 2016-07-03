@@ -204,17 +204,31 @@ class NowPlaying {
 class NowPlayingBuffer extends NowPlaying {
   constructor(sourceBuffer) {
     super();
+    this.pauser = new PauseManager();
     this.sourceBuffer = sourceBuffer;
+    this.setupNode();
+  }
+
+  setupNode() {
+    this.audioNode = null;
     this.audioNode = context.createBufferSource();
-    this.audioNode.buffer = sourceBuffer;
+    this.audioNode.buffer = this.sourceBuffer;
     this.audioNode.connect(phaseCancellationNode);
   }
+
   play() {
-    this.audioNode.start();
+    if (this.pauser.offset > 0) {
+      this.setupNode();
+      console.log('offset', this.pauser.offset);
+      console.log('node', this.audioNode);
+    }
+    this.audioNode.start(0, this.pauser.offset);
+    this.pauser.start();
   }
 
   pause() {
     this.audioNode.stop();
+    this.pauser.pause();
   }
 
   clean() {
