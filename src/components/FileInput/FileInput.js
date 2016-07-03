@@ -10,24 +10,16 @@ import {connect} from 'react-redux';
 
 import * as songActions from 'redux/modules/song';
 
-const actions = {
-  onFileChange: (event) => {
-    console.log('SONG SELECTOR container', event.target.files[0]);
-    return songActions.loadSongFile(event.target.files[0]);
-  }
-};
-
-
 @connect(
   state => ({
     songType: state.song.songType,
     fileName: state.song.fileName
   }),
-  dispatch => bindActionCreators(Object.assign({}, actions), dispatch)
+  dispatch => bindActionCreators(songActions, dispatch)
 )
 export default class FileInput extends Component {
   static propTypes = {
-    onFileChange: PropTypes.func.isRequired,
+    loadSongFile: PropTypes.func.isRequired,
     fileSelected: PropTypes.bool,
     fileName: PropTypes.string,
     songType: PropTypes.string
@@ -41,7 +33,7 @@ export default class FileInput extends Component {
           Browse for file...
         </button>
         <input className={styles.inputElement} type="file" ref="fileInput"
-               onChange={this.props.onFileChange} />
+               onChange={(event) => this.props.loadSongFile(event.target.files[0])} />
         <span className={styles.fileName}>{this.props.fileName}</span>
       </div>
     );
