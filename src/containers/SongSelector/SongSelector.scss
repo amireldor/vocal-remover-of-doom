@@ -1,0 +1,12 @@
+@import '../../theme/variables';
+
+.songSelector {
+    border: 3px dashed lighten($main-font-color, 74%);
+    width: 0.8 * $app-width;
+    min-height: $song-selector-height;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
