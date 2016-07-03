@@ -1,3 +1,8 @@
+/**
+ * TODO: should probably be a single component which is  `connected()`
+ * instead of a pair of container and components like redux wants. This is
+ * how the creator of the redux-example did it.
+ */
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {load} from 'redux/modules/info';

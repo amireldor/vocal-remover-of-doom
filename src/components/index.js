@@ -7,3 +7,4 @@
 
 export InfoBar from './InfoBar/InfoBar';
 export FileInput from './FileInput/FileInput';
+export PlayerControls from './PlayerControls/PlayerControls';

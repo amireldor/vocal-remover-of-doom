@@ -16,7 +16,13 @@ class AudioBufferManager {
     // Use deprecated method as new method is not widely implemented
     this.scriptProcessorNode.onaudioprocess = this.onAudioProcess;
     this.scriptProcessorNode.connect(audioContext.destination);
-    this.bufferSourceNode = null;
+    this.sourceNode = null;
+
+    // For handling pausing and stuff as createBufferSource can be started only once
+    this.pauseManagerState = {
+      shouldBeUsed: false,  // If this object should be used at all (no need in media stream for example)
+      buffer: null
+    };
   }
 
   onAudioProcess(audioProcessingEvent) {
@@ -34,35 +40,73 @@ class AudioBufferManager {
     }
   }
 
-  setBuffer(audioBuffer) {
-    // TODO: check for stereo
+  setBufferSource(audioBuffer) {
+    if (!this.stereoCheck(audioBuffer)) {
+      // TODO
+    }
     this.clear();
-    this.bufferSourceNode = audioContext.createBufferSource();
-    this.bufferSourceNode.buffer = audioBuffer;
-    this.bufferSourceNode.connect(this.scriptProcessorNode);
+    this.sourceNode = audioContext.createBufferSource();
+    this.sourceNode.buffer = audioBuffer;
+    this.sourceNode.connect(this.scriptProcessorNode);
+
+    const shouldBeUsed = true;
+    this.handlePauseManager(this.sourceNode.buffer, shouldBeUsed);
+  }
+
+  setStreamSource(audioStreamURL) {
+    this.clear();
+    this.streamNode = audioContext.createMediaStreamSource(audioStreamURL);
+    if (!this.stereoCheck(this.streamNode.buffer)) {
+      this.clear();
+      // TODO
+    }
+    // this.bufferStreamNode.buffer = audioBuffer;
+    this.sourcemNode.connect(this.scriptProcessorNode);
+
+    const shouldNotBeUsed = false;
+    this.handlePauseManager(this.streamNode.buffer, shouldNotBeUsed);
+  }
+
+  handlePauseManager(buffer, shouldBeUsed) {
+    this.pauseManagerState = {
+      buffer,
+      shouldBeUsed,
+      offset: audioContext.currentTime
+    };
+  }
+
+  stereoCheck(/* audioBuffer */) {
+    // TODO: implement
+    return true;
   }
 
   play() {
-    if (!this.bufferSourceNode) {
+    if (!this.sourceNode) {
       console.error('AudioBufferManager: no buffer to play');
       return;
     }
-    this.bufferSourceNode.start();
+    let offset = 0;
+    if (this.pauseManagerState.shouldBeUsed) {
+      // Recreate buffer
+      this.setBufferSource(this.pauseManagerState.buffer);
+      offset = this.pauseManagerState.offset;
+    }
+    this.sourceNode.start(0, offset);
   }
 
   pause() {
-    if (!this.bufferSourceNode) {
+    if (!this.sourceNode) {
       console.error('AudioBufferManager: no buffer to pause');
       return;
     }
-    this.bufferSourceNode.stop();
+    this.sourceNode.stop();
   }
 
   clear() {
-    if (this.bufferSourceNode) {
-      this.bufferSourceNode.disconnect();
+    if (this.sourceNode) {
+      this.sourceNode.disconnect();
     }
-    this.bufferSourceNode = null;
+    this.sourceNode = null;
   }
 }
 
@@ -77,10 +121,23 @@ export async function loadFile(file) {
   });
   return new Promise((resolve) => {
     audioContext.decodeAudioData(data, (buffer) => {
-      audioBufferManager.setBuffer(buffer);
+      audioBufferManager.setBufferSource(buffer);
       resolve(buffer);
     });
   });
+}
+
+export async function loadStream(stream) {
+  const sourceURL = (window.URL || window.webkitURL).createObjectURL(stream) || stream;
+
+  // video.src = sourceURL;
+
+  audioBufferManager.setBufferStream(sourceURL);
+
+  // Cleanup
+  if (sourceURL.revokeObjectURL) {
+    sourceURL.revokeObjectURL();
+  }
 }
 
 export function play() {
@@ -90,5 +147,5 @@ export function play() {
 
 export function pause() {
   console.log('audio pause');
-  audioBufferManager.stop();
+  audioBufferManager.pause();
 }

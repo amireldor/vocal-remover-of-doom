@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import Helmet from 'react-helmet';
 
 import {SongSelector} from 'containers';
+import {PlayerControls} from 'components';
 
 export default class Home extends Component {
   render() {
@@ -12,8 +13,9 @@ export default class Home extends Component {
       <div className={styles.home}>
         <Helmet title="Home"/>
         <div className="container">
-          Hi.
+          Hir
           <SongSelector />
+          <PlayerControls />
         </div>
       </div>
     );
