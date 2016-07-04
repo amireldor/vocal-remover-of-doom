@@ -1,3 +1,5 @@
+import config from 'config';
+
 export function loadGoogleClient() {
   // <script src="https://apis.google.com/js/client.js?onload=googleOnLoadCallback"></script>
 
@@ -7,6 +9,11 @@ export function loadGoogleClient() {
   document.body.appendChild(script);
 }
 
-window.googleOnLoadCallback = function () {
-  console.log('google load!!!!');
-};
+export const googleReady = new Promise((resolve) => {
+  window.googleOnLoadCallback = () => {
+    console.log('Google client loaded!');
+    gapi.client.setApiKey(config.google.browserKey);
+    resolve();
+  };
+});
+
