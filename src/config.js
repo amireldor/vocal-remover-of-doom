@@ -32,5 +32,8 @@ module.exports = Object.assign({
       ]
     }
   },
+  google: {
+    browserKey: 'AIzaSyBZmrmsaspp_g7srsn9VgFmzmKAhL7mXPs'
+  }
 
 }, environment);

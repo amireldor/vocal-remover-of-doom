@@ -21,6 +21,8 @@ const dest = document.getElementById('content');
 const store = createStore(_browserHistory, client, window.__data);
 const history = syncHistoryWithStore(_browserHistory, store);
 
+import {loadGoogleClient} from './google/google.js';
+
 function initSocket() {
   const socket = io('', {path: '/ws'});
   socket.on('news', (data) => {
@@ -50,6 +52,9 @@ ReactDOM.render(
   </Provider>,
   dest
 );
+
+// After rendering we can load the Google'ing
+loadGoogleClient();
 
 if (process.env.NODE_ENV !== 'production') {
   window.React = React; // enable debugger
