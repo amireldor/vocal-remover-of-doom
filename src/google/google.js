@@ -13,6 +13,7 @@ export const googleReady = new Promise((resolve) => {
   window.googleOnLoadCallback = () => {
     console.log('Google client loaded!');
     gapi.client.setApiKey(config.google.browserKey);
+    gapi.client.load('youtube', 'v3');
     resolve();
   };
 });

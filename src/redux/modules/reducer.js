@@ -11,25 +11,13 @@ import info from './info';
 
 import song from './song';
 import playerControls from './playerControls';
+import youtube from './youtube';
 
 export default combineReducers({
   routing: routerReducer,
   reduxAsyncConnect,
   info,
   song,
-  playerControls
+  playerControls,
+  youtube
 });
-
-// export default combineReducers({
-//   routing: routerReducer,
-//   reduxAsyncConnect,
-//   auth,
-//   form,
-//   multireducer: multireducer({
-//     counter1: counter,
-//     counter2: counter,
-//     counter3: counter
-//   }),
-//   info,
-//   widgets
-// });

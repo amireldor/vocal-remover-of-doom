@@ -3,16 +3,21 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import _ from 'lodash';  // eslint-disable-line id-length
 
-import * as songActions from 'redux/modules/song';
+import * as youTubeActions from 'redux/modules/youtube';
 
 const SEARCH_WAIT_TIME = 457;  // Milliseconds
 
+const actions = {
+  youTubeSearch: youTubeActions.search
+};
+
 @connect(
-  state => ({}),  // eslint-disable-line no-unused-vars <-- TMEPORARY
-  dispatch => bindActionCreators(songActions, dispatch)
+  state => ({}),  // eslint-disable-line no-unused-vars
+  dispatch => bindActionCreators(actions, dispatch)
 )
 class PlayerControls extends Component {
   static propTypes = {
+    youTubeSearch: PropTypes.func
   }
   constructor() {
     super();
@@ -32,6 +37,8 @@ class PlayerControls extends Component {
   // Don't call this! Call it without the '_'
   _startYouTubeSearch(searchTerm) {
     console.log('YOTUBE:', searchTerm);
+    console.log('props', this.props);
+    this.props.youTubeSearch(searchTerm);
   }
 
   render() {
