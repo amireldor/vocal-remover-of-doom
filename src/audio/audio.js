@@ -267,9 +267,17 @@ export async function loadFile(file) {
 
 
 export function play() {
+  if (!nowPlaying) {
+    console.error('Nothing to play!');
+    return;
+  }
   nowPlaying.play();
 }
 
 export function pause() {
+  if (!nowPlaying) {
+    console.error('Nothing to pause!');
+    return;
+  }
   nowPlaying.pause();
 }
