@@ -9,16 +9,18 @@ const initialState = {
 };
 
 export default function reducer(state = initialState, action) {
-  switch (action) {
+  switch (action.type) {
     case YOUTUBE_SEARCH:
       return {
         ...state,
+        searchStatus: PENDING,
         searchTerm: action.searchTerm
       };
     case YOUTUBE_SEARCH_RESULTS:
       return {
         ...state,
-        searchResults: action.results
+        searchStatus: DONE,
+        searchResults: action.items
       };
     default:
       return state;
@@ -27,13 +29,11 @@ export default function reducer(state = initialState, action) {
 
 export function search(searchTerm) {
   console.log('in redeucer', searchTerm);
-  console.log('fetch!', fetch);
   return (dispatch) => {
     // Dispatch the initiation of the search
     dispatch({
       type: YOUTUBE_SEARCH,
-      searchTerm,
-      status: PENDING
+      searchTerm
     });
 
     // Do the search!
@@ -44,8 +44,12 @@ export function search(searchTerm) {
       order: 'relevance',
       safeSearch: 'none',
       q: searchTerm
-    }).then((results) => {
-      console.log('results!', results);
+    }).then((result) => {
+      console.log('results!', result.result.items);
+      dispatch({
+        type: YOUTUBE_SEARCH_RESULTS,
+        items: result.result.items
+      });
     }, (err) => {
       console.error('There was some error with the YouTube search', err);
       // TODO: dispatch error message
