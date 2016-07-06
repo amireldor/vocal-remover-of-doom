@@ -23,7 +23,7 @@ class YouTubeResults extends Component {
               </li>);
     });
 
-    return (<ul>
+    return (<ul className={styles.theList}>
             {listItems}
             </ul>);
   }

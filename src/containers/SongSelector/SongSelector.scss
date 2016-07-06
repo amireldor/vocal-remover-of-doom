@@ -1,12 +1,19 @@
 @import '../../theme/variables';
 
 .songSelector {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: lighten(orange, 20%);
 }
 
 .inputs {
-    background: lighten(red, 60%);
+  background: lighten(red, 20%);
+  flex: 0;
 }
 
 .youTubeResults {
-    background: lighten(blue, 60%);
+  background: lighten(blue, 20%);
+  flex: 1;
+  overflow-y: scroll;
 }

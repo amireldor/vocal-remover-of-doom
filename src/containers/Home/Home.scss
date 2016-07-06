@@ -3,12 +3,16 @@
 .home {
   // Show main UI elements as row
   display: flex;
-  align-items: center;
-
+  align-items: flex-start;
 }
 
 .songSelector {
   background: lighten(purple, 60%);
+  margin:0;
+  padding: 0;
+  height: 100vh;
+  max-height: 100vh;
+  width: 534px;
 }
 
 .mainView {

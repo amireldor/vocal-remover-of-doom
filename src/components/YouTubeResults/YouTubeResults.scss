@@ -1,5 +1,17 @@
+.theList {
+  list-style-type: none;
+  padding: 0;
+}
+
 .result {
+  font-size: 12pt;
+  &:hover {
+    background: darken(white, 17.4%);
+    cursor: pointer;
+  }
 }
 
 .thumbnail {
+  height: 84px;
+  margin-right: 5px;
 }
