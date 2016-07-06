@@ -8,14 +8,6 @@ body {
 }
 
 .app {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 100%;
-  padding: 96px 0 102px 0; 
 }
 .appContent {
-  /* text-align: left; */
-  width: $app-width;
 }

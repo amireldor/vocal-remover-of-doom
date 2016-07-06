@@ -1,20 +1,15 @@
 @import "../../theme/variables.scss";
 
 .home {
-}
-
-.container {
-  // Show main UI elements as column
+  // Show main UI elements as row
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
 }
-
-// Layout of child elements:
 
 .songSelector {
+  background: lighten(purple, 40%);
 }
 
-.playerControls {
+.mainView {
+  background: lighten(green, 40%);
 }

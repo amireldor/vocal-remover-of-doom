@@ -12,9 +12,12 @@ export default class Home extends Component {
     return (
       <div className={styles.home}>
         <Helmet title="Home"/>
-        <div className={styles.container}>
-          <SongSelector className={styles.songSelector} />
-          <PlayerControls className={styles.playerControls} />
+        <div className={styles.songSelector}>
+          <SongSelector/>
+        </div>
+        <div className={styles.mainView}>
+          main view
+          <PlayerControls/>
         </div>
       </div>
     );
