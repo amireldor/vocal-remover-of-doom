@@ -27,6 +27,7 @@ export default function reducer(state = initialState, action) {
 
 export function search(searchTerm) {
   console.log('in redeucer', searchTerm);
+  console.log('fetch!', fetch);
   return (dispatch) => {
     // Dispatch the initiation of the search
     dispatch({
@@ -36,6 +37,19 @@ export function search(searchTerm) {
     });
 
     // Do the search!
+    gapi.client.youtube.search.list({
+      part: 'snippet',
+      type: 'video',
+      maxResults: 50,
+      order: 'relevance',
+      safeSearch: 'none',
+      q: searchTerm
+    }).then((results) => {
+      console.log('results!', results);
+    }, (err) => {
+      console.error('There was some error with the YouTube search', err);
+      // TODO: dispatch error message
+    });
     console.log('YOUTUBE RESULTS');
   };
 }
