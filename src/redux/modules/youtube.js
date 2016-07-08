@@ -1,5 +1,5 @@
-const YOUTUBE_SEARCH = 'vocal-doom/youtube/YOUTUBE_SEARCH';
-const YOUTUBE_SEARCH_RESULTS = 'vocal-doom/youtube/YOUTUBE_SEARCH_RESULTS';
+import {YOUTUBE_SEARCH, YOUTUBE_SEARCH_RESULTS} from 'constants/ActionTypes';
+
 const [PENDING, DONE] = ['PENDING', 'DONE'];
 
 const initialState = {
@@ -27,32 +27,3 @@ export default function reducer(state = initialState, action) {
   }
 }
 
-export function search(searchTerm) {
-  return (dispatch) => {
-    // Dispatch the initiation of the search
-    dispatch({
-      type: YOUTUBE_SEARCH,
-      searchTerm
-    });
-
-    // Do the search!
-    gapi.client.youtube.search.list({
-      part: 'snippet',
-      type: 'video',
-      maxResults: 50,
-      order: 'relevance',
-      safeSearch: 'none',
-      q: searchTerm
-    }).then((result) => {
-      // Dispatch the results...
-      dispatch({
-        type: YOUTUBE_SEARCH_RESULTS,
-        items: result.result.items
-      });
-    }, (err) => {
-      console.error('There was some error with the YouTube search', err);
-      // TODO: dispatch error message
-    });
-    console.log('YOUTUBE RESULTS');
-  };
-}

@@ -21,7 +21,7 @@ const dest = document.getElementById('content');
 const store = createStore(_browserHistory, client, window.__data);
 const history = syncHistoryWithStore(_browserHistory, store);
 
-import {loadGoogleClient} from './google/google.js';
+import {loadGoogleClient, loadYouTubeIframeAPI} from './google/google.js';
 
 function initSocket() {
   const socket = io('', {path: '/ws'});
@@ -55,6 +55,7 @@ ReactDOM.render(
 
 // After rendering we can load the Google'ing
 loadGoogleClient();
+loadYouTubeIframeAPI();
 
 if (process.env.NODE_ENV !== 'production') {
   window.React = React; // enable debugger

@@ -1,4 +1,3 @@
-
 import * as _audioFunctions from './audio';
 
 let audioFunctions = _audioFunctions;  // These are the *real* Web Audio API functions

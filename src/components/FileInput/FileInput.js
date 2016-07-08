@@ -6,16 +6,15 @@
 import React, {Component, PropTypes} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-// import {load} from 'redux/modules/info';
 
-import * as songActions from 'redux/modules/song';
+import * as SongActions from 'actions/SongActions';
 
 @connect(
   state => ({
     songType: state.song.songType,
     fileName: state.song.fileName
   }),
-  dispatch => bindActionCreators(songActions, dispatch)
+  dispatch => bindActionCreators(SongActions, dispatch)
 )
 export default class FileInput extends Component {
   static propTypes = {

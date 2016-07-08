@@ -3,12 +3,12 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import _ from 'lodash';  // eslint-disable-line id-length
 
-import * as youTubeActions from 'redux/modules/youtube';
+import * as YouTubeActions from 'actions/YouTubeActions';
 
 const SEARCH_WAIT_TIME = 457;  // Milliseconds
 
 const actions = {
-  youTubeSearch: youTubeActions.search
+  youTubeSearch: YouTubeActions.search
 };
 
 @connect(
@@ -18,7 +18,7 @@ const actions = {
 class PlayerControls extends Component {
   static propTypes = {
     youTubeSearch: PropTypes.func
-  }
+  };
   constructor() {
     super();
     this.state = {

@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from'redux';
 
 // import * as songActions from 'redux/modules/song';
-import {loadSongYouTube} from 'redux/modules/song';
+import {loadSongYouTube} from 'actions/SongActions';
 
 @connect(
   state => ({results: state.youtube.searchResults}),

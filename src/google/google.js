@@ -1,12 +1,5 @@
 import config from 'config';
 
-export function loadGoogleClient() {
-  console.log('Loading Google client...');
-  const script = document.createElement('script');
-  script.src = 'https://apis.google.com/js/client.js?onload=googleOnLoadCallback';
-  document.body.appendChild(script);
-}
-
 export const googleReady = new Promise((resolve) => {
   window.googleOnLoadCallback = () => {
     console.log('Google client loaded!');
@@ -16,55 +9,78 @@ export const googleReady = new Promise((resolve) => {
   };
 });
 
-// This is a promise that is being recreated everytime a new video is loaded and fulfilled when it's loaded
-export let videoLoaded = new Promise((resolv, reject) => { reject(); });  // A rejected promise for staters
-
-export function isVideoLoaded() {
-  return videoLoaded;
+export function loadGoogleClient() {
+  console.log('Loading Google client...');
+  const script = document.createElement('script');
+  script.src = 'https://apis.google.com/js/client.js?onload=googleOnLoadCallback';
+  document.body.appendChild(script);
 }
+
+export const youTubeIframeReady = new Promise((resolve) => {
+  window.onYouTubeIframeAPIReady = () => {
+    console.log('cool iframe');
+
+    // Create the element that will hold the iframe
+    let videoIframe = document.createElement('div');  // Don't have to be <iframe> right now
+    videoIframe.id = 'youtube-iframe';
+    document.body.appendChild(videoIframe);
+
+    resolve();
+  }
+});
+
+export function loadYouTubeIframeAPI() {
+  const script = document.createElement('script');
+  script.src = 'https://www.youtube.com/iframe_api';
+  document.body.appendChild(script);
+}
+
+
+// // This is a promise that is being recreated everytime a new video is loaded and fulfilled when it's loaded
+// export let videoLoaded = new Promise((resolv, reject) => { reject(); });  // A rejected promise for staters
+
+// export function isVideoLoaded() {
+//   return videoLoaded;
+// }
 
 export function getYouTubeVideoUrl(videoId) {
   return 'https://www.youtube.com/watch?v=' + videoId;
 }
 
-// Create <video> that will play the youtube stuff, even when hidden
-let video = null;
-if (typeof document !== 'undefined') {
-  video = document.createElement('video');
-  video.id = 'youtube-player';
-  document.body.appendChild(video);
-}
-
 export function setVideoSrc(url, autoplay = true) {
-  video.src = url;
-  video.load();
-  if (videoLoaded) {
-    // In case there's a previous promise, I think this will safely help it to be garbage collected.
-    videoLoaded.reject(new Error('Rejecting previous videoLoaded promise to free any .then\'s that might be waiting.'));
-  }
-  videoLoaded = new Promise((resolve, reject) => {
-    video.error = (err) => {
-      reject(new Error('Video tag loading error: ' + err));
-    };
-
-    video.abort = () => {
-      reject(new Error(`Loading video tag aborted (${url})`));
-    };
-
-    video.canplay = () => {
-      if (autoplay) {
-        video.play();
-      }
-
-      resolve(url);
-    };
-  });
+  // console.log('will set src to ', url);
+  // video.src = url;
+  // console.log('after?');
+  // video.load();
+  // console.log('after 2?');
+  // if (videoLoaded) {
+  //   // This seems stupid
+  //   videoLoaded = null;
+  // }
+  // videoLoaded = new Promise((resolve, reject) => {
+  //   video.onerror = (err) => {
+  //     reject(new Error('Video tag loading error: ' + err.message));
+  //   };
+  //
+  //   video.onabort = () => {
+  //     reject(new Error(`Loading video tag aborted (${url})`));
+  //   };
+  //
+  //   video.oncanplay = () => {
+  //     if (autoplay) {
+  //       video.play();
+  //     }
+  //
+  //     resolve(url);
+  //   };
+  // });
+  // return videoLoaded;
 }
 
 export function playVideo() {
-  video.play();
+  // video.play();
 }
 
 export function stopVideo() {
-  video.stop();
+  // video.stop();
 }

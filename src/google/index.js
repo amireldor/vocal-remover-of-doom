@@ -1,2 +1,3 @@
-import google from './google';
-export default google;
+import * as Google from './google';
+
+export default {...Google};
