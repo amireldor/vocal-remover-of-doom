@@ -16,17 +16,39 @@ export function loadGoogleClient() {
   document.body.appendChild(script);
 }
 
+class YouTubeIframeManager {
+  constructor() {
+    // Create the element that will hold the iframe
+    this.videoIframe = document.createElement('div');  // Don't have to be <iframe> right now
+    this.videoIframe.id = 'youtube-iframe';
+    document.body.appendChild(this.videoIframe);
+  }
+  apiReady() {
+    // The YouTube iframe player
+    this.player = new YT.Player(this.videoIframe.id, {
+      origin: `${window.location.protocol}//${window.location.host}`,
+      width: '320',
+      height: '240',
+      events: {
+        onReady: this.onReady,
+        onStateChange: this.onStateChange
+      }
+    });
+  }
+  onReady() {
+    console.log('onReady');
+  }
+  onStateChange() {
+    console.log('onStateChange');
+  }
+}
+
+const youTubeIframeManager = new YouTubeIframeManager();
 export const youTubeIframeReady = new Promise((resolve) => {
   window.onYouTubeIframeAPIReady = () => {
-    console.log('cool iframe');
-
-    // Create the element that will hold the iframe
-    let videoIframe = document.createElement('div');  // Don't have to be <iframe> right now
-    videoIframe.id = 'youtube-iframe';
-    document.body.appendChild(videoIframe);
-
+    youTubeIframeManager.apiReady();
     resolve();
-  }
+  };
 });
 
 export function loadYouTubeIframeAPI() {

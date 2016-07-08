@@ -35,6 +35,7 @@
     "__DEVTOOLS__": true,
     "socket": true,
     "webpackIsomorphicTools": true,
-    "gapi": true
+    "gapi": true,
+    "YT": true
   }
 }
