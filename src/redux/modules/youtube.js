@@ -28,7 +28,6 @@ export default function reducer(state = initialState, action) {
 }
 
 export function search(searchTerm) {
-  console.log('in redeucer', searchTerm);
   return (dispatch) => {
     // Dispatch the initiation of the search
     dispatch({
@@ -45,7 +44,7 @@ export function search(searchTerm) {
       safeSearch: 'none',
       q: searchTerm
     }).then((result) => {
-      console.log('results!', result.result.items);
+      // Dispatch the results...
       dispatch({
         type: YOUTUBE_SEARCH_RESULTS,
         items: result.result.items
